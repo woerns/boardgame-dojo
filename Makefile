@@ -10,7 +10,8 @@ train:
 	poetry run dojo train --config configs/training/alphazero_connect_four.yaml
 
 serve:
-	poetry run dojo serve
+	@test -n "$(CHECKPOINT)" || (echo "Usage: make serve CHECKPOINT=path/to/best.pt" && exit 1)
+	poetry run dojo serve --checkpoint "$(CHECKPOINT)"
 
 lint:
 	poetry run python -m py_compile src/dojo/core/types.py

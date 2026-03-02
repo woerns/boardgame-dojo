@@ -10,7 +10,12 @@ def main(args: list[str] | None = None) -> None:
     parser.add_argument("--host", type=str, default="0.0.0.0")
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--game", type=str, default="connect_four")
-    parser.add_argument("--checkpoint", type=str, default=None)
+    parser.add_argument(
+        "--checkpoint",
+        type=str,
+        required=True,
+        help="Path to model checkpoint (.pt)",
+    )
     parser.add_argument(
         "--mcts-simulations",
         type=int,

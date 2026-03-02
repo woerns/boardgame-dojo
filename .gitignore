@@ -20,7 +20,7 @@ logs/
 
 # Others
 .claude/
-*.md
+notes/
 
 # OS
 .DS_Store

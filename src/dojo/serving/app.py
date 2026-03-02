@@ -17,7 +17,7 @@ from dojo.training.checkpoint import load_checkpoint_data
 
 def create_app(
     game_name: str = "connect_four",
-    checkpoint_path: str | None = None,
+    checkpoint_path: str = "",
     mcts_simulations: int = 50,
 ) -> FastAPI:
     """Create and configure the FastAPI application."""
@@ -26,21 +26,21 @@ def create_app(
     # Create game
     game = create_game(game_name)
 
-    # Build network — load from checkpoint or use a small untrained one
+    if not checkpoint_path:
+        raise ValueError("checkpoint_path is required")
+
+    # Build network from checkpoint
     obs_shape = game.observation_tensor_shape()
     num_actions = game.num_actions()
-    if checkpoint_path:
-        data = load_checkpoint_data(Path(checkpoint_path))
-        model_config = data.get("model_config", {})
-        network = AlphaZeroNetwork(
-            obs_shape,
-            num_actions,
-            num_res_blocks=model_config.get("num_res_blocks", 5),
-            num_channels=model_config.get("num_channels", 64),
-        )
-        network.net.load_state_dict(data["model_state_dict"])
-    else:
-        network = AlphaZeroNetwork(obs_shape, num_actions, num_res_blocks=1, num_channels=8)
+    data = load_checkpoint_data(Path(checkpoint_path))
+    model_config = data.get("model_config", {})
+    network = AlphaZeroNetwork(
+        obs_shape,
+        num_actions,
+        num_res_blocks=model_config.get("num_res_blocks", 5),
+        num_channels=model_config.get("num_channels", 64),
+    )
+    network.net.load_state_dict(data["model_state_dict"])
     network.eval_mode()
 
     # Session manager

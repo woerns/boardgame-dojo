@@ -18,29 +18,28 @@ from dojo.training.checkpoint import load_checkpoint_data
 def main(args: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="Play against a trained agent")
     parser.add_argument("--game", type=str, default="connect_four")
-    parser.add_argument("--checkpoint", type=str, default=None, help="Path to model checkpoint")
+    parser.add_argument(
+        "--checkpoint",
+        type=str,
+        required=True,
+        help="Path to model checkpoint (.pt)",
+    )
     parser.add_argument("--simulations", type=int, default=100)
     parser.add_argument("--human-player", type=int, default=0, choices=[0, 1])
     parsed = parser.parse_args(args)
 
     game = create_game(parsed.game)
 
-    # Build network — load architecture and weights from checkpoint if available
-    if parsed.checkpoint:
-        data = load_checkpoint_data(Path(parsed.checkpoint))
-        model_config = data.get("model_config", {})
-        network = AlphaZeroNetwork(
-            observation_shape=game.observation_tensor_shape(),
-            num_actions=game.num_actions(),
-            num_res_blocks=model_config.get("num_res_blocks", 5),
-            num_channels=model_config.get("num_channels", 64),
-        )
-        network.net.load_state_dict(data["model_state_dict"])
-    else:
-        network = AlphaZeroNetwork(
-            observation_shape=game.observation_tensor_shape(),
-            num_actions=game.num_actions(),
-        )
+    # Build network from checkpoint architecture + weights
+    data = load_checkpoint_data(Path(parsed.checkpoint))
+    model_config = data.get("model_config", {})
+    network = AlphaZeroNetwork(
+        observation_shape=game.observation_tensor_shape(),
+        num_actions=game.num_actions(),
+        num_res_blocks=model_config.get("num_res_blocks", 5),
+        num_channels=model_config.get("num_channels", 64),
+    )
+    network.net.load_state_dict(data["model_state_dict"])
 
     network.eval_mode()
     ai_agent = AlphaZeroAgent(
