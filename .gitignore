@@ -1,0 +1,26 @@
+# Virtual environment
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Training artifacts
+checkpoints/
+logs/
+
+# IDE
+.idea/
+.vscode/
+.pytest_cache/
+*.swp
+
+# Others
+.claude/
+*.md
+
+# OS
+.DS_Store

@@ -1,0 +1,39 @@
+[project]
+name = "dojo"
+version = "0.1.0"
+description = "RL Training Framework for Board Games"
+authors = [
+    {name = "boardgame-dojo"}
+]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "torch>=2.0",
+    "numpy",
+    "fastapi",
+    "uvicorn[standard]",
+    "websockets",
+    "pydantic>=2.0",
+    "pyyaml",
+    "tensorboard",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "httpx",
+]
+
+[project.scripts]
+dojo = "dojo.cli.main:app"
+
+[tool.poetry]
+packages = [{include = "dojo", from = "src"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

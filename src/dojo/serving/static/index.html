@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boardgame Dojo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Boardgame Dojo</h1>
+        <div id="controls">
+            <button id="new-game-btn" onclick="startNewGame(0)">New Game (You = X)</button>
+            <button id="new-game-btn-o" onclick="startNewGame(1)">New Game (You = O)</button>
+        </div>
+        <div id="status"></div>
+        <div id="board-container"></div>
+    </div>
+    <script src="renderers/connect_four.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

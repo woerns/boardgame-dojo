@@ -1,0 +1,35 @@
+# AlphaZero training config for Connect Four
+# Usage: poetry run dojo train --config configs/training/alphazero_connect_four.yaml
+
+game_name: connect_four
+game_params: {}
+
+model:
+  num_res_blocks: 6
+  num_channels: 96
+
+mcts:
+  num_simulations: 128
+  c_puct: 1.5
+  dirichlet_alpha: 0.3
+  dirichlet_epsilon: 0.25
+
+num_self_play_games: 64
+num_self_play_workers: 8
+temperature_threshold: 12
+
+num_iterations: 20
+batch_size: 256
+learning_rate: 0.001
+weight_decay: 0.0001
+num_train_steps_per_iteration: 100
+
+replay_buffer_capacity: 100000
+
+num_eval_games: 32
+num_eval_workers: 8
+eval_mcts_num_simulations: 128
+
+checkpoint_dir: checkpoints
+checkpoint_interval: 2
+device: cuda

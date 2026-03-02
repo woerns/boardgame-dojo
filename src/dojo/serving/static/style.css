@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+#app {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #e94560;
+}
+
+#controls {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+button {
+    background: #16213e;
+    color: #e0e0e0;
+    border: 2px solid #e94560;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #e94560;
+    color: #fff;
+}
+
+#status {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    min-height: 1.5rem;
+    font-weight: bold;
+    color: #53d8fb;
+}
+
+#board-container {
+    display: flex;
+    justify-content: center;
+}
+
+/* Connect Four board styling */
+.c4-board {
+    background: #0f3460;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.c4-cell {
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+
+.c4-cell:hover {
+    opacity: 0.8;
+}
+
+.c4-hole {
+    fill: #1a1a2e;
+}
+
+.c4-piece-1 {
+    fill: #e94560;
+}
+
+.c4-piece-2 {
+    fill: #ffd700;
+}
+
+.c4-drop-zone {
+    fill: transparent;
+    cursor: pointer;
+}
+
+.c4-drop-zone:hover {
+    fill: rgba(255, 255, 255, 0.05);
+}
